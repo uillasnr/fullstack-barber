@@ -11,12 +11,11 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
 import { addDays, format, setHours, setMinutes } from "date-fns";
-//import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
-//import { toast } from "sonner";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { saveBooking } from "../_actions/save-booking";
-//import { getDayBookings } from "../_actions/get-day-bookings";
+import { getDayBookings } from "../_actions/get-day-bookings";
 //import BookingInfo from "@/app/_components/booking-info";
 
 interface ServiceItemProps {
@@ -42,8 +41,8 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     }
 
     const refreshAvailableHours = async () => {
-   /*    const _dayBookings = await getDayBookings(barbershop.id, date);
-      setDayBookings(_dayBookings); */
+      const _dayBookings = await getDayBookings(barbershop.id, date);
+      setDayBookings(_dayBookings);
     };
 
     refreshAvailableHours();
@@ -80,14 +79,14 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
        await saveBooking({
         serviceId: service.id,
         barbershopId: barbershop.id,
-        date: newDate,
+        date: newDate.toISOString(),
         userId: (data.user as any).id,
       }); 
 
       setSheetIsOpen(false);
       setHour(undefined);
       setDate(undefined);
-     /*  toast("Reserva realizada com sucesso!", {
+       toast("Reserva realizada com sucesso!", {
         description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
           locale: ptBR,
         }),
@@ -95,7 +94,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
           label: "Visualizar",
           onClick: () => router.push("/bookings"),
         },
-      }); */
+      }); 
     } catch (error) {
       console.error(error);
     } finally {
@@ -109,6 +108,8 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     }
 
     return generateDayTimeList(date).filter((time) => {
+      //Não mostrar os horarios agendados
+      //se houver alguma reserva em "dayBookings" com a hora e minutos igual a time, não incluir
       const timeHour = Number(time.split(":")[0]);
       const timeMinutes = Number(time.split(":")[1]);
 
@@ -214,7 +215,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                   )}
 
                   <div className="py-6 px-5 border-t border-solid border-secondary">
-                    <BookingInfo
+                  {/*   <BookingInfo
                       booking={{
                         barbershop: barbershop,
                         date:
@@ -223,7 +224,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                             : undefined,
                         service: service,
                       }}
-                    />
+                    /> */}
                   </div>
 
                   <SheetFooter className="px-5">
