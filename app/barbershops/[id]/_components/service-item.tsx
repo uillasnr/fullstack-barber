@@ -16,7 +16,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { saveBooking } from "../_actions/save-booking";
 import { getDayBookings } from "../_actions/get-day-bookings";
-//import BookingInfo from "@/app/_components/booking-info";
+import BookingInfo from "@/app/_components/booking-info";
+
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -215,7 +216,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                   )}
 
                   <div className="py-6 px-5 border-t border-solid border-secondary">
-                  {/*   <BookingInfo
+                     <BookingInfo
                       booking={{
                         barbershop: barbershop,
                         date:
@@ -224,7 +225,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                             : undefined,
                         service: service,
                       }}
-                    /> */}
+                    /> 
                   </div>
 
                   <SheetFooter className="px-5">
