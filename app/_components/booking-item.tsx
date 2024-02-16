@@ -81,14 +81,18 @@ export default function BookingItem({ booking }: BookingItemProps) {
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center flex-1 border-l border-solid border-secondary">
-              <p className="text-sm capitalize">
+            <div className="flex flex-col items-center justify-center flex-1 border-l border-solid border-secondary lg:p-4">
+              <p className="text-xs sm:text-xs lg:text-base capitalize">
                 {format(booking.date, "MMMM", {
                   locale: ptBR,
                 })}
               </p>
-              <p className="text-2xl">{format(booking.date, "dd")}</p>
-              <p className="text-sm">{format(booking.date, "hh:mm")}</p>
+              <p className="text-xl sm:text-2xl">
+                {format(booking.date, "dd")}
+              </p>
+              <p className="text-xs sm:text-sm">
+                {format(booking.date, "hh:mm")}
+              </p>
             </div>
           </CardContent>
         </Card>
