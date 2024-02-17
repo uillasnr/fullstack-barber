@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../_components/ui/carousel";
+import Image from "next/image";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -46,57 +47,69 @@ export default async function Home() {
     <div>
       <Header />
 
-      <div className="px-5 pt-5 md:pt-12">
-        <h2 className="text-xl font-bold">
-          {session?.user
-            ? `Olá, ${session.user.name?.split(" ")[0]}!`
-            : "Olá! Vamos agendar um corte hoje?"}
-        </h2>
-        <p className="capitalize text-sm">
-          {format(new Date(), "EEEE',' dd 'de' MMMM", {
-            locale: ptBR,
-          })}
-        </p>
-      </div>
-
-      <div className="md:flex md:gap-0 lg:flex lg:gap-32">
-        <div className="px-5 mt-6 md:w-[40%] ">
-          <Search />
+      <div className="h-[330px] w-full relative">
+        <div className="px-5 pt-5 md:pt-12 md:px-16  relative z-10">
+          <h2 className="text-xl font-bold">
+            {session?.user
+              ? `Olá, ${session.user.name?.split(" ")[0]}!`
+              : "Olá! Vamos agendar um corte hoje?"}
+          </h2>
+          <p className="capitalize text-sm">
+            {format(new Date(), "EEEE',' dd 'de' MMMM", {
+              locale: ptBR,
+            })}
+          </p>
         </div>
 
-        <div className="mt-6 md:w-96  xl:w-auto px-5">
-          {confirmedBookings.length > 0 && (
-            <>
-              <h2 className="pl-10 text-xs mb-3 uppercase text-gray-400 font-bold">
-                Agendamentos
-              </h2>
-              <div className="px-10  ">
-                <Carousel
-                  opts={{
-                    align: "center",
-                  }}
-                  className="w-full min-w-80"
-                >
-                  <CarouselContent>
-                    {confirmedBookings.map((booking) => (
-                      <CarouselItem key={booking.id} className="w-full  ">
-                        <div className="p-1">
-                          <BookingItem booking={booking} />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="text-[#7c61f0]" />
-                  <CarouselNext className="text-[#7c61f0]" />
-                </Carousel>
-              </div>
-            </>
-          )}
+        <div className="md:flex md:gap-0 lg:flex lg:gap-32 mt-5">
+          <div className="px-5 mt-6 md:mt-0 md:w-[40%] md:px-16 relative z-10">
+            <Search />
+          </div>
+
+          <div className="mt-6 md:w-96  xl:w-auto px-5 relative z-10">
+            {confirmedBookings.length > 0 && (
+              <>
+                <h2 className="pl-16 text-xs mb-3 uppercase text-gray-400 font-bold">
+                  Agendamentos
+                </h2>
+                <div className="px-10">
+                  <Carousel
+                    opts={{
+                      align: "center",
+                    }}
+                    className="w-full px-5 md:min-w-80"
+                  >
+                    <CarouselContent>
+                      {confirmedBookings.map((booking) => (
+                        <CarouselItem key={booking.id} className="w-full  ">
+                          <div className="p-1">
+                            <BookingItem booking={booking} />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="text-[#7c61f0]" />
+                    <CarouselNext className="text-[#7c61f0]" />
+                  </Carousel>
+                </div>
+              </>
+            )}
+          </div>
+          <Image
+            src="/bg.png"
+            alt=""
+            style={{
+              objectFit: "cover",
+              backgroundPosition: 'center',
+            }}
+            fill
+            /*  className="opacity-75" */
+          />
         </div>
       </div>
 
       <div className="mt-6">
-        <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">
+        <h2 className="pl-16 text-xs mb-3 uppercase text-gray-400 font-bold">
           Recomendados
         </h2>
 
@@ -111,7 +124,10 @@ export default async function Home() {
               {barbershops.map((barbershop) => (
                 <CarouselItem key={barbershop.id} className="pl-1 basis-44">
                   <div className="p-1 ">
-                    <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+                    <BarbershopItem
+                      key={barbershop.id}
+                      barbershop={barbershop}
+                    />
                   </div>
                 </CarouselItem>
               ))}
@@ -123,16 +139,32 @@ export default async function Home() {
       </div>
 
       <div className="mt-6 mb-[4.5rem]">
-        <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">
+        <h2 className="pl-16 text-xs mb-3 uppercase text-gray-400 font-bold">
           Populares
         </h2>
 
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {recommendedBarbershops.map((barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
-              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-            </div>
-          ))}
+        <div className="px-16">
+          <Carousel
+            opts={{
+              align: "center",
+            }}
+            className=""
+          >
+            <CarouselContent className="">
+              {recommendedBarbershops.map((barbershop) => (
+                <CarouselItem key={barbershop.id} className="pl-1 basis-44">
+                  <div className="p-1 ">
+                    <BarbershopItem
+                      key={barbershop.id}
+                      barbershop={barbershop}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-[#7c61f0]" />
+            <CarouselNext className="text-[#7c61f0]" />
+          </Carousel>
         </div>
       </div>
     </div>
