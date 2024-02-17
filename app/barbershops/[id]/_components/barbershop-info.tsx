@@ -20,19 +20,18 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
   };
 
   return (
-    <div>
-      <div className="h-[250px] w-full relative">
-        <Button onClick={handleBackClick} size="icon" variant="outline" className="z-50 absolute top-4 left-4">
+    <div className="w-full lg:p-5">
+      <div className="h-[250px] w-full relative  lg:h-[350px] rounded-lg">
+        <Button
+          onClick={handleBackClick}
+          size="icon"
+          variant="outline"
+          className="z-50 absolute top-4 left-4"
+        >
           <ChevronLeftIcon />
         </Button>
 
         <Sheet>
-          <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="z-50 absolute top-4 right-4">
-              <MenuIcon />
-            </Button>
-          </SheetTrigger>
-
           <SheetContent className="p-0">
             <SideMenu />
           </SheetContent>
@@ -45,7 +44,7 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
           style={{
             objectFit: "cover",
           }}
-          className="opacity-75"
+          className="opacity-75 "
         />
       </div>
 
