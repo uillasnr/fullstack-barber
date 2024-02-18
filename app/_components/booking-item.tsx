@@ -136,7 +136,43 @@ export default function BookingItem({ booking }: BookingItemProps) {
             {isBookingConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
 
-          {/*   <BookingInfo booking={booking} /> */}
+          <Card className="mb-5">
+            <CardContent className="p-3 gap-3 flex flex-col">
+              <div className="flex justify-between">
+                <h2 className="font-bold">{booking.service.name}</h2>
+                <h3 className="font-bold text-sm">
+                  {" "}
+                  {Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(Number(booking.service.price))}
+                </h3>
+              </div>
+
+              {booking.date && (
+                <>
+                  <div className="flex justify-between">
+                    <h3 className="text-gray-400 text-sm">Data</h3>
+                    <h4 className="text-sm">
+                      {format(booking.date, "dd 'de' MMMM", {
+                        locale: ptBR,
+                      })}
+                    </h4>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <h3 className="text-gray-400 text-sm">Horário</h3>
+                    <h4 className="text-sm">{format(booking.date, "hh:mm")}</h4>
+                  </div>
+                </>
+              )}
+
+              <div className="flex justify-between">
+                <h3 className="text-gray-400 text-sm">Barbearia</h3>
+                <h4 className="text-sm">{booking.barbershop.name}</h4>
+              </div>
+            </CardContent>
+          </Card>
 
           <SheetFooter className="flex-row gap-3 mt-6">
             <SheetClose asChild>
