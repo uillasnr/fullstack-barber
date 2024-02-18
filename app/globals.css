@@ -44,3 +44,27 @@
     @apply bg-background text-foreground antialiased h-screen flex flex-col;
   }
 }
+
+.overflow-x-auto{
+  cursor: pointer;
+}
+.overflow-x-auto::-webkit-scrollbar {
+  width: 10px; 
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #393b44 ;
+  border: solid 1px #26272b;
+  border-radius: 10px; 
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #8161ff; 
+  border-radius: 10px; 
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

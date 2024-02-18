@@ -4,13 +4,11 @@ import { redirect } from "next/navigation";
 import { db } from "../_lib/prisma";
 import BookingItem from "../_components/booking-item";
 import { authOptions } from "../_lib/auth";
-
+import BookingInfoCard from "../_components/booking-info-card";
 
 const BookingsPage = async () => {
-  //recuperar a sessão do usuário (ver se ele está logado ou não)
   const session = await getServerSession(authOptions);
 
-  //se ele não estiver logado, redirecione para a pagina de login
   if (!session?.user) {
     redirect("/");
   }
@@ -42,35 +40,54 @@ const BookingsPage = async () => {
     }),
   ]);
 
+  // Renderizar o primeiro card de confirmedBookings com Information, se houver pelo menos um confirmedBooking
+  const firstConfirmedBooking = confirmedBookings[0];
+
   return (
     <>
       <Header />
 
-      <div className="px-5 py-6">
-        <h1 className="text-xl font-bold mb-6">Agendamentos</h1>
+      <div className="lg:px-40 px-5 py-6 flex">
+        <div className="w-full pr-4">
+          <h1 className="text-xl font-bold mb-6">Agendamentos</h1>
 
-        {confirmedBookings.length > 0 && (
-          <>
-            <h2 className="text-gray-400 uppercase font-bold text-sm mb-3">Confirmados</h2>
+          <div>
+            {confirmedBookings.length > 0 && (
+              <>
+                <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
+                  CONFIRMADOS
+                </h2>
+                <div className="flex flex-col gap-3">
+                  {confirmedBookings.map((booking) => (
+                    <BookingItem key={booking.id} booking={booking} />
+                  ))}
+                </div>
+              </>
+            )}
 
-            <div className="flex flex-col gap-3">
-              {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
+            {finishedBookings.length > 0 && (
+              <>
+                <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
+                  Finalizados
+                </h2>
+
+                <div className="flex flex-col gap-3">
+                  {finishedBookings.map((booking) => (
+                    <BookingItem key={booking.id} booking={booking} />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Renderizar o primeiro card de confirmedBookings com Information */}
+        {firstConfirmedBooking && (
+          <div className="w-full pl-4 mt-20 hidden lg:block ">
+            <div className="flex w-full flex-col">
+              <BookingInfoCard booking={firstConfirmedBooking} />
             </div>
-          </>
-        )}
-
-        {finishedBookings.length > 0 && (
-          <>
-            <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">Finalizados</h2>
-
-            <div className="flex flex-col gap-3">
-              {finishedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
-            </div>
-          </>
+          </div>
         )}
       </div>
     </>
