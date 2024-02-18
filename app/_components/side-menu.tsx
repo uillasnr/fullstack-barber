@@ -30,7 +30,10 @@ const SideMenu = () => {
         <div className="flex justify-between px-5 py-6 items-center">
           <div className="flex items-center gap-3 ">
             <Avatar>
-              <AvatarImage src={data.user?.image ?? ""} />
+              <AvatarImage
+                className="rounded-full w-10"
+                src={data.user?.image ?? ""}
+              />
             </Avatar>
 
             <h2 className="font-bold">{data.user.name}</h2>
