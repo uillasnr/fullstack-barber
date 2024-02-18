@@ -1,8 +1,7 @@
-import { Button } from "@/app/_components/ui/button";
+
 import { db } from "@/app/_lib/prisma";
 import BarbershopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
-import { Session } from "inspector";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
 import Header from "@/app/_components/header";
@@ -39,11 +38,6 @@ const BarbershopDetailsPage = async ({
         <div className="lg:flex">
           <div className="lg:w-full">
             <BarbershopInfo barbershop={barbershop} />
-
-            <div className="pl-5 gap-5 flex lg:hidden mt-5">
-              <Button>Serviços</Button>
-              <Button variant="secondary">Informações</Button>
-            </div>
 
             <div className="lg:grid lg:grid-cols-2 lg:gap-4 mb-4 p-5">
               {barbershop.services.map((service) => (
