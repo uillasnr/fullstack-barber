@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+  
 
-## Getting Started
+Tópicos
 
-First, run the development server:
+🔹 Sobre o Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🔹 Objetivo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔹 Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🔹 Como rodar a aplicação
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+🔹 Backlog
 
-## Learn More
+⭐ Sobre o Projeto
+Aplicação desenvolvida durante o evento Full Stack Week, evento gratuito organizado pelo Full Stack Club (https://fullstackclub.com.br/).
 
-To learn more about Next.js, take a look at the following resources:
+Este projeto foi desenvolvido utilizando:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✔️ NextJS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+✔️ ReactJS
 
-## Deploy on Vercel
+✔️ Prisma ORM
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✔️ Autenticação com o Google
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+🎯 Objetivo
+Desenvolvimento de uma aplicação para controle de agendamentos de uma barbearia.
+
+📑 Funcionalidades:
+✅ Agendamento ✅ Cancelamento do Agendamento
+
+▶️ Como rodar a aplicação
+⚠️ Pré-Requisitos
+A aplicação foi desenvolvida utilizando Google OAuth Authentication, sendo assim será necessário configurar o OAuth 2.0 para autenticação.
+Necessário possuir um banco de dados configurado para a aplicação
+✔️ Clonando o Projeto
+No terminal, clone o projeto:
+
+https://github.com/uillasnr/fullstack-barber.git
+🔧 Variáveis de Ambiente
+Na raiz do projeto será necessário criar o arquivo .env e preenche-lo com as informações abaixo:
+DATABASE_URL="postgresql:usuario:senha@ip:porta/banco"
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+🔧 Criação das Tabelas do Banco
+Para criação das tabelas será necessário executar o comando abaixo, que será responsavel pela criação das tabelas com base nas migrations.
+
+npx prisma migrate dev
+🔧 Populando o Banco de Dados
+No projeto ja consta um pré-cadastro contendo informações como barbearias, serviços, etc
+
+Para popular o banco de dados com estas informações é necessário executar o comando abaixo:
+
+npx prisma db seed
+▶️ Executando a aplicação
+Acessar a pasta raiz do projeto e instalar as dependencias através do comando:
+npm install
+Após instalar as dependencias, executar o comando abaixo para iniciar o projeto:
+npx expo start --clear
+🎯 Backlog
+🔲 Tratamento da expiração do token
+
